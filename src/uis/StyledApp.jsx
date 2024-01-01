@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 
 const StyledApp = styled.div`
-  width: 90%;
-  height: 90vh;
+  width: 100%;
+  height: 100vh;
   box-shadow: var(--shadow-lg);
-  margin: 5rem auto;
   position: relative;
   overflow: hidden;
   background-image: linear-gradient(
-    101deg,
+    102deg,
     var(--color-grey-800) 50%,
     var(--color-brand-700) 50%
   );
