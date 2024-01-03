@@ -1,9 +1,8 @@
 import { Global, css } from "@emotion/react";
 
-import StyledApp from "./styles/StyledApp";
 import GlobalStyles from "./styles/globalStyles";
-import StyledImage from "./styles/StyledImage";
-import Position from "./styles/Position";
+import AppLayout from "./uis/AppLayout";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -13,15 +12,27 @@ function App() {
           ${GlobalStyles}
         `}
       />
-
-      <StyledApp>
-        <Position width={"40rem"} top={"50%"} left={"50%"}>
-          <StyledImage src="vayl.png" />
-          <Position width={"20rem"} top={"-10%"} left={"57%"}>
-            <StyledImage src="tonearm.png" />
-          </Position>
-        </Position>
-      </StyledApp>
+      <AppLayout />
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 5000,
+          },
+          error: {
+            duration: 5000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "var(--color-grey-700)",
+            color: "var(--color-grey-200)",
+          },
+        }}
+      />
     </div>
   );
 }
