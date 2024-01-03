@@ -1,8 +1,12 @@
 import styled from "@emotion/styled";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setSongDialog, setSongForm } from "../features/songs/songSlice";
+import { space } from "styled-system";
 
 const StyledModal = styled.div`
+  ${space}
   position: fixed;
   top: 50%;
   left: 50%;
@@ -27,9 +31,9 @@ const Overlay = styled.div`
 const Button = styled.button`
   background: none;
   border: none;
-  padding: 0.4rem;
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
+  aspect-ratio: 1;
   transition: all 0.2s;
   position: absolute;
   top: 1.2rem;
@@ -46,11 +50,19 @@ const Button = styled.button`
   }
 `;
 
-function Modal({ children, onClose }) {
+function Modal({ children }) {
+  const dispatch = useDispatch();
+  const { songForm } = useSelector((state) => state.songs);
   return createPortal(
     <Overlay>
-      <StyledModal>
-        <Button onClick={() => onClose(false)}>
+      <StyledModal width={songForm ? "60%" : "40%"}>
+        <Button
+          onClick={() =>
+            songForm
+              ? dispatch(setSongForm(false))
+              : dispatch(setSongDialog(false))
+          }
+        >
           <HiXMark />
         </Button>
         {children}

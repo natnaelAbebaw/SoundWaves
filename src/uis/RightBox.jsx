@@ -6,7 +6,7 @@ const StyledDiv = styled.div`
   grid-column: 6 / span 3;
   justify-self: space-bettewn;
   position: relative;
-  z-index: 1000;
+  z-index: 1;
 `;
 
 function LeftBox({ children }) {

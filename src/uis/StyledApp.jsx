@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 const StyledApp = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 102vh;
   box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;

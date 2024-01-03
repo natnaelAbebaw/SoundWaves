@@ -2,11 +2,20 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 const Input = styled.input`
-  padding: 1rem 3rem;
-  width: 80%;
+  padding: 8px 2rem;
+  width: 100%;
   background-color: var(--color-grey-800);
   border: none;
   border-radius: var(--border-radius-sm);
+
+  &:disabled {
+    opacity: 0.6;
+    background-color: var(--color-grey-600);
+  }
+
+  &:focus {
+    background-color: var(--color-grey-700);
+  }
   ${(props) =>
     props.type === "file" &&
     css`

@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 
 const Form = styled.form`
-  width: 80rem;
+  width: 100%;
   overflow: hidden;
   font-size: 1.4rem;
   border-radius: var(--border-radius-lg);
-  padding: 3rem 5rem;
+  padding: 2rem 3rem;
   background-color: var(--color-grey-900);
 `;
 

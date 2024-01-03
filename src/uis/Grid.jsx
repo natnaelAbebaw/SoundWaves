@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { grid, flexbox, space } from "styled-system";
+import { grid, flexbox, space, layout } from "styled-system";
 function generateFr(num) {
   let template = "";
   for (let i = 0; i < num; i++) {
@@ -13,6 +13,7 @@ const Grid = styled.div`
   ${grid}
   ${space}
   ${flexbox}
+  ${layout}
   ${(props) =>
     props.columns
       ? `grid-template-columns: ${generateFr(props.columns)};`

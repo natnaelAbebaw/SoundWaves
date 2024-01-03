@@ -1,6 +1,8 @@
-import styled  from "@emotion/styled";
+import styled from "@emotion/styled";
 
-import {css} from "@emotion/react";
+import { css } from "@emotion/react";
+
+import { color, space } from "styled-system";
 
 const sizes = {
   small: css`
@@ -12,14 +14,15 @@ const sizes = {
   `,
   medium: css`
     font-size: 1.4rem;
-    padding: 1.2rem 1.6rem;
+    padding: 1rem 1.4rem;
     font-weight: 500;
+    width: 100%;
   `,
   large: css`
     font-size: 1.6rem;
     padding: 1.2rem 2.4rem;
     font-weight: 500;
-    width:100%;
+    width: 100%;
   `,
 };
 
@@ -51,16 +54,21 @@ const variations = {
   `,
 };
 
-
 const Button = styled.button`
+  ${color}
+  ${space}
   border:none;
   border-radius: var(--border-radius-sm);
-  ${(props)=> variations[props.variation]}
-  ${(props)=> sizes[props.size]}
-`
- Button.defaultProps = {
-  variation: "primary",
-  size: "large"
- }
+  ${(props) => variations[props.variation]}
+  ${(props) => sizes[props.size]}
 
- export default Button;
+  &:disabled {
+    opacity: 0.6;
+  }
+`;
+Button.defaultProps = {
+  variation: "primary",
+  size: "large",
+};
+
+export default Button;

@@ -16,11 +16,12 @@ const GlobalStyles = css`
     --color-grey-100: #f3f4f6;
     --color-grey-200: #e5e7eb;
     --color-grey-300: #d1d5db;
-    --color-grey-400: #9ca3af;
-    --color-grey-500: #6b7280;
-    --color-grey-600: #4b5563;
-    --color-grey-700: #374151;
+    --color-grey-400: #8d9aaa;
+    --color-grey-500: #5a687a;
+    --color-grey-600: #303741;
+    --color-grey-700: #22272d;
     --color-grey-800: #14171b;
+    --color-grey-850: #111317;
     --color-grey-900: #080a0b;
 
     --color-blue-100: #e0f2fe;
@@ -38,7 +39,7 @@ const GlobalStyles = css`
     --color-red-700: #b91c1c;
     --color-red-800: #991b1b;
 
-    --backdrop-color: rgba(255, 255, 255, 0.1);
+    --backdrop-color: rgba(255, 255, 255, 0.01);
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
     --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
@@ -48,8 +49,6 @@ const GlobalStyles = css`
     --border-radius-sm: 5px;
     --border-radius-md: 7px;
     --border-radius-lg: 9px;
-
-    /* For dark mode */
   }
 
   *,
@@ -68,8 +67,8 @@ const GlobalStyles = css`
   }
 
   body {
-    font-family: "Poppins", sans-serif;
-    color: var(--color-grey-700);
+    font-family: "Lato", sans-serif;
+    color: var(--color-grey-50);
 
     transition: color 0.3s, background-color 0.3s;
     min-height: 100vh;
@@ -103,8 +102,9 @@ const GlobalStyles = css`
   button:focus,
   textarea:focus,
   select:focus {
-    outline: 2px solid var(--color-brand-600);
-    outline-offset: -1px;
+    outline: 1px solid var(--color-brand-600);
+    outline-offset: 1px;
+    border-radius: 3px;
   }
 
   /* Parent selector, finally */
@@ -134,9 +134,17 @@ const GlobalStyles = css`
 
   img {
     max-width: 100%;
+  }
 
-    /* For dark mode */
-    /* filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity)); */
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-grey-850);
+    direction: ltr;
+    border-radius: 2px;
   }
 `;
 

@@ -6,7 +6,8 @@ import StyledApp from "./StyledApp";
 import StyledImage from "./StyledImage";
 import TopBar from "./TopBar";
 import RightBox from "./RightBox";
-import SongDetail from "../features/songs/pages/SongDetail";
+import SongDetail from "../features/songs/components/SongDetail";
+import BottomBar from "./BottomBar";
 
 function AppLayout() {
   return (
@@ -18,6 +19,9 @@ function AppLayout() {
             <StyledImage src="tonearm.png" />
           </Position>
         </Position>
+
+        <BottomBar />
+
         <Grid columns={8}>
           <TopBar />
           <LeftBox>
