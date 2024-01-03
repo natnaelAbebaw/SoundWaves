@@ -1,95 +1,56 @@
 import styled from "@emotion/styled";
 import Song from "./Song";
 import Column from "../../../uis/Column";
-import Position from "../../../uis/Position";
-import { useState } from "react";
-import Heading from "../../../uis/Heading";
-import Modal from "../../../uis/Model";
-import SongForm from "./SongForm";
+
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getSongsStart } from "../songSlice";
+import { ScaleLoader } from "react-spinners";
 const StyledDiv = styled.div`
   padding: 2rem;
   grid-column: 1 / span 3;
-  border: 1px solid var(--color-grey-700);
-  border-radius: 5px;
-  height: 65vh;
+  height: 70vh;
   position: relative;
+  overflow-y: auto;
 `;
 
-const Button = styled.button`
-  color: var(--color-grey-0);
-  font-size: 3rem;
-  border: none;
-  width: 5rem;
-  display: inline-block;
-  aspect-ratio: 1;
-  background-color: var(--color-brand-800);
-  cursor: pointer;
-  border-radius: 50%;
+const SpinnerBox = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
-
-const Box = styled.div`
-  border: 1px solid var(--color-grey-700);
-  padding: 3px 5px;
-  border-radius: 5px;
-  background-color: var(--color-grey-800);
+const NoSong = styled.div`
+  text-align: center;
+  color: var(--color-grey-500);
 `;
-
-const songList = [
-  {
-    songName: "Bohemian Rhapsody",
-    artist: "Queen",
-    album: "A Night at the Opera",
-    duration: "5:55",
-  },
-  {
-    songName: "Imagine",
-    artist: "John Lennon xdasjdsknafdsdjfd,d",
-    album: "Imagine",
-    duration: "3:03",
-  },
-  {
-    songName: "Hotel California",
-    artist: "Eagles",
-    album: "Hotel California",
-    duration: "6:30",
-  },
-  {
-    songName: "Thriller",
-    artist: "Michael Jackson",
-    album: "Thriller",
-    duration: "5:58",
-  },
-  // Add more songs as needed
-];
-
 function SongList() {
-  const [activeSong, setActiveSong] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const { status, songs, error } = useSelector((state) => state.songs);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getSongsStart());
+  }, [dispatch]);
+
   return (
     <StyledDiv>
-      <Position bottom="-5rem" left={"50%"}>
-        <Button onClick={() => setShowModal((s) => !s)}>+</Button>
-        {showModal && (
-          <Modal onClose={setShowModal}>
-            <SongForm onClose={setShowModal} />
-          </Modal>
-        )}
-      </Position>
-      <Position top="0" left={"50%"}>
-        <Box>
-          <Heading as="h3">Playlist</Heading>
-        </Box>
-      </Position>
-      <Column gap="2px">
-        {songList.map((song) => (
-          <Song
-            key={song.songName}
-            activeSong={activeSong}
-            setActiveSong={setActiveSong}
-            song={song}
-          />
-        ))}
-      </Column>
+      {status === "loading" && (
+        <SpinnerBox>
+          {" "}
+          <ScaleLoader alig color="var(--color-brand-700)" />{" "}
+        </SpinnerBox>
+      )}
+      {status === "failure" && <div>{error}</div>}
+      {status === "success" && (
+        <Column gap="2px">
+          {songs.map((song) => (
+            <Song key={song.id} song={song} />
+          ))}
+          {songs.length === 0 && (
+            <NoSong>No songs, click the plus button to add a song.</NoSong>
+          )}
+        </Column>
+      )}
     </StyledDiv>
   );
 }
