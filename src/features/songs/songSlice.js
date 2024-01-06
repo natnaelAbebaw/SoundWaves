@@ -9,6 +9,7 @@ const initialState = {
   songForm: "",
   songDialog: "",
   playingSong: null,
+  playingStatus: "idle",
 };
 
 const songSlice = createSlice({
@@ -86,7 +87,14 @@ const songSlice = createSlice({
       state.songDialog = action.payload;
     },
     setPlayingSong: (state, action) => {
+      state.playingStatus = "playing";
       state.playingSong = action.payload;
+    },
+    playSong(state) {
+      state.playingStatus = "playing";
+    },
+    pauseSong(state) {
+      state.playingStatus = "paused";
     },
   },
 });
@@ -108,5 +116,7 @@ export const {
   deleteSongSuccess,
   deleteSongFailure,
   setPlayingSong,
+  playSong,
+  pauseSong,
 } = songSlice.actions;
 export default songSlice.reducer;

@@ -1,4 +1,4 @@
-import { HiMiniPlay } from "react-icons/hi2";
+import { HiMiniPlay, HiMiniPause } from "react-icons/hi2";
 import { IoEllipsisVerticalSharp } from "react-icons/io5";
 import { IoCreateOutline } from "react-icons/io5";
 import { IoTrashOutline } from "react-icons/io5";
@@ -15,6 +15,7 @@ import Modal from "../../../uis/Model";
 import DialogeBox from "../../../uis/DialogeBox";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  pauseSong,
   setCurrentSong,
   setPlayingSong,
   setSongDialog,
@@ -26,6 +27,7 @@ const StyledSong = styled.div`
   padding: 1rem 1.4rem;
   transform: skewX(-10deg);
   z-index: 1;
+  cursor: pointer;
   ${(props) =>
     props.active &&
     css`
@@ -33,11 +35,13 @@ const StyledSong = styled.div`
       border-radius: 3px;
       transition: all 0.4s;
       z-index: 2;
+      box-shadow: var(--shadow-lg);
     `}
   &:hover {
     background-color: var(--color-grey-700);
     border-radius: 3px;
     transition: all 0.4s;
+    box-shadow: var(--shadow-lg);
   }
 `;
 const InvertSkew = styled.div`
@@ -60,11 +64,6 @@ const StyledButton2 = styled.button`
     border-radius: 3px;
     transition: all 0.4s;
   }
-`;
-const StyledHiMiniPlay = styled(HiMiniPlay)`
-  font-size: 2.4rem;
-  color: var(--color-grey-500);
-  /* color: var(--color-brand-700); */
 `;
 
 const StyledTitle = styled.h3`
@@ -96,9 +95,8 @@ const StyledImage = styled.img`
 function Song({ song }) {
   const [showMenu, setShowMenu] = useState(false);
   const modalRef = useRef();
-  const { currentSong, songDialog, songForm, playingSong } = useSelector(
-    (state) => state.songs
-  );
+  const { currentSong, songDialog, songForm, playingSong, playingStatus } =
+    useSelector((state) => state.songs);
   const dispatch = useDispatch();
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -125,14 +123,25 @@ function Song({ song }) {
         <Row>
           <StyledImage src={song.coverArt ?? "vayl.png"} alt="" />
           <StyledButton>
-            <StyledHiMiniPlay
-              color={
-                playingSong?.id == song.id
-                  ? "var(--color-brand-700)"
-                  : "var(--color-grey-500)"
-              }
-              onClick={() => dispatch(setPlayingSong(song))}
-            />
+            {playingSong?.id == song.id && playingStatus == "playing" ? (
+              <HiMiniPause
+                color={
+                  playingSong?.id == song.id
+                    ? "var(--color-brand-700)"
+                    : "var(--color-grey-500)"
+                }
+                onClick={() => dispatch(pauseSong())}
+              />
+            ) : (
+              <HiMiniPlay
+                color={
+                  playingSong?.id == song.id
+                    ? "var(--color-brand-700)"
+                    : "var(--color-grey-500)"
+                }
+                onClick={() => dispatch(setPlayingSong(song))}
+              />
+            )}
           </StyledButton>
           <Row justifyContent="space-between" flexGrow="1">
             <Column gap="0">
