@@ -7,7 +7,7 @@ const StyledApp = styled.div`
   position: relative;
   overflow: hidden;
   background-image: linear-gradient(
-    102deg,
+    106deg,
     var(--color-grey-800) 50%,
     var(--color-brand-700) 50%
   );
