@@ -8,6 +8,7 @@ import TopBar from "./TopBar";
 import RightBox from "./RightBox";
 import SongDetail from "../features/songs/components/SongDetail";
 import BottomBar from "./BottomBar";
+import HalfCircle from "./HalfCircle";
 
 function AppLayout() {
   return (
@@ -15,8 +16,9 @@ function AppLayout() {
       <StyledApp>
         <Position width={"38rem"} top={"50%"} left={"50%"}>
           <StyledImage src="vayl.png" />
-          <Position width={"23.5rem"} top={"-14%"} left={"57%"}>
-            <StyledImage src="tonearm.png" />
+          <HalfCircle />
+          <Position width={"23.5rem"} top={"-27%"} left={"65%"}>
+            <StyledImage src="tonearm4.png" />
           </Position>
         </Position>
 
