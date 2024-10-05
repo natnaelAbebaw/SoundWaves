@@ -38,7 +38,7 @@ function BottomBar() {
       {playingSong && (
         <StyledBottomBar>
           <Grid height="inherit" columns={10}>
-            <StyledHiOutlineArrowSmallLeft />
+            {/* <StyledHiOutlineArrowSmallLeft /> */}
             <Waveform audio={playingSong} />
           </Grid>
         </StyledBottomBar>

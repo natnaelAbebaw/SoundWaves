@@ -12,6 +12,7 @@ const StyledDiv = styled.div`
   /* padding: 2rem 5rem 0; */
   grid-column: 1 / span 3;
   position: relative;
+  margin-top: 3rem;
 `;
 
 const Button = styled.button`

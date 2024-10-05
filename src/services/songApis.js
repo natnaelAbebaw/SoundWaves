@@ -1,7 +1,7 @@
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function getAllSongs() {
-  let { data: songs, error } = await supabase.from("songs").select("*");
+  let { data: songs, error } = await supabase.from("Songs").select("*");
 
   if (error) {
     throw new Error(error.message);
@@ -24,7 +24,7 @@ export async function addSong(song) {
   }
 
   const { data: newSong, error } = await supabase
-    .from("songs")
+    .from("Songs")
     .insert([song])
     .select("*");
 
@@ -44,6 +44,7 @@ async function uploadFile(file, bucketName) {
     .upload(fileName, file);
 
   if (error) {
+    console.error(error);
     throw new Error(error.message);
   }
 
@@ -52,10 +53,15 @@ async function uploadFile(file, bucketName) {
 
 export async function updateSong(song) {
   const { id, ...songData } = song;
-  const { data } = await supabase
-    .from("songs")
+  const { data, err } = await supabase
+    .from("Songs")
     .select("coverArt, audioFile")
     .eq("id", id);
+
+  if (err) {
+    console.log(err);
+    throw new Error(error.message);
+  }
 
   if (data && data.length > 0) {
     const { coverArt, audioFile } = data[0];
@@ -88,7 +94,7 @@ export async function updateSong(song) {
   }
 
   const { data: updatedSong, error } = await supabase
-    .from("songs")
+    .from("Songs")
     .update(songData)
     .eq("id", id)
     .select();
@@ -101,7 +107,7 @@ export async function updateSong(song) {
 }
 
 export async function deleteSong(song) {
-  const { error } = await supabase.from("songs").delete().eq("id", song.id);
+  const { error } = await supabase.from("Songs").delete().eq("id", song.id);
 
   if (error) {
     throw new Error(error.message);

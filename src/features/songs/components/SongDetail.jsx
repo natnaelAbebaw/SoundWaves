@@ -1,14 +1,24 @@
 import styled from "@emotion/styled";
-import { HiOutlineBackward } from "react-icons/hi2";
-import { HiOutlineForward } from "react-icons/hi2";
-import { HiOutlinePauseCircle } from "react-icons/hi2";
-
+// import { HiOutlineBackward } from "react-icons/hi2";
+import { HiMiniPause } from "react-icons/hi2";
+import { HiMiniPlay } from "react-icons/hi2";
+import { FaStepForward } from "react-icons/fa";
+import { FaStepBackward } from "react-icons/fa";
+import { FaForward } from "react-icons/fa";
+import { FaBackward } from "react-icons/fa";
 import Column from "../../../uis/Column";
 import Row from "../../../uis/Row";
 import Grid from "../../../uis/Grid";
 import { color } from "styled-system";
 import { useDispatch, useSelector } from "react-redux";
-import { setSongDialog, setSongForm } from "../songSlice";
+import {
+  setSongDialog,
+  setSongForm,
+  playSong,
+  pauseSong,
+  forwardSong,
+  backwardSong,
+} from "../songSlice";
 
 const StyledSongDetail = styled.div`
   width: 60%;
@@ -60,11 +70,21 @@ const Button = styled.button`
   padding: 5px 8px;
 `;
 
+const StyledText = styled.div`
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-brand-100);
+`;
+
 function SongDetail() {
-  const { currentSong } = useSelector((state) => state.songs);
+  const { currentSong, playingStatus } = useSelector((state) => state.songs);
+
   const dispatch = useDispatch();
-  if (!currentSong) return <div> No song is Selected</div>;
+  if (!currentSong)
+    return <StyledText>Select songs to see the details...</StyledText>;
   const { title, duration, album, genre, released, coverArt } = currentSong;
+
   return (
     <StyledSongDetail>
       <Row justifyContent="center" mb="1rem">
@@ -79,13 +99,35 @@ function SongDetail() {
       </Row>
 
       <Row
-        p={"1rem 7rem"}
+        p={"1rem 2rem"}
         alignItems="flex-start"
         justifyContent="space-between"
       >
-        <HiOutlineBackward fontSize={"3rem"} color="var(--color-grey-800)" />
-        <HiOutlinePauseCircle fontSize={"4rem"} color="var(--color-grey-800)" />
-        <HiOutlineForward fontSize={"3rem"} color="var(--color-grey-800)" />
+        <FaStepBackward fontSize={"3rem"} color="var(--color-grey-800)" />
+        <FaBackward
+          fontSize={"4rem"}
+          color="var(--color-grey-800)"
+          onClick={() => dispatch(backwardSong())}
+        />
+        {playingStatus == "playing" ? (
+          <HiMiniPause
+            fontSize={"6rem"}
+            color="var(--color-grey-800)"
+            onClick={() => dispatch(pauseSong())}
+          />
+        ) : (
+          <HiMiniPlay
+            fontSize={"6rem"}
+            color="var(--color-grey-800)"
+            onClick={() => dispatch(playSong())}
+          />
+        )}
+        <FaForward
+          fontSize={"4rem"}
+          color="var(--color-grey-800)"
+          onClick={() => dispatch(forwardSong())}
+        />
+        <FaStepForward fontSize={"3rem"} color="var(--color-grey-800)" />
       </Row>
 
       <Grid columns={3} justifyContent="space-between">

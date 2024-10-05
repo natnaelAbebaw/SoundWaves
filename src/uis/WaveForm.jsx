@@ -6,7 +6,7 @@ import { HiMiniStop } from "react-icons/hi2";
 import { HiMiniPause } from "react-icons/hi2";
 import Row from "./Row";
 import { useDispatch, useSelector } from "react-redux";
-import { pauseSong, playSong } from "../features/songs/songSlice";
+import { pauseSong, playSong, getWaveSurf } from "../features/songs/songSlice";
 
 const StyledWaveform = styled.div`
   grid-column: 2 / span 4;
@@ -45,13 +45,15 @@ function Waveform({ audio }) {
     const wavesurfer = WaveSurfer.create({
       container: waveformRef.current,
       waveColor: "#8d9aaa",
-      progressColor: "#d60007",
+      progressColor: "#813c3e",
       barWidth: 1,
       cursorWidth: 1,
       barGap: 1,
       height: 40,
       responsive: true,
     });
+
+    dispatch(getWaveSurf(wavesurfer));
 
     wavesurfer.load(audio.audioFile);
 
@@ -99,6 +101,18 @@ function Waveform({ audio }) {
       dispatch(pauseSong());
     }
   }
+
+  // function forward() {
+  //   if (wavesurferRef.current) {
+  //     wavesurferRef.current.seekTo(wavesurferRef.current.getCurrentTime() + 5);
+  //   }
+  // }
+
+  // function backward() {
+  //   if (wavesurferRef.current) {
+  //     wavesurferRef.current.seekTo(wavesurferRef.current.getCurrentTime() - 5);
+  //   }
+  // }
 
   return (
     <StyledWaveform>

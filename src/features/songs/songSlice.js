@@ -10,6 +10,8 @@ const initialState = {
   songDialog: "",
   playingSong: null,
   playingStatus: "idle",
+  waveSurf: null,
+  wavesurferRef: null,
 };
 
 const songSlice = createSlice({
@@ -96,6 +98,18 @@ const songSlice = createSlice({
     pauseSong(state) {
       state.playingStatus = "paused";
     },
+    getWaveSurf(state, action) {
+      state.waveSurf = action.payload;
+    },
+    getWaveSurfRef(state, action) {
+      state.wavesurferRef = action.payload;
+    },
+    forwardSong(state) {
+      state.waveSurf.seekTo(state.waveSurf.getCurrentTime() + 5);
+    },
+    backwardSong(state) {
+      state.waveSurf.seekTo(state.waveSurf.getCurrentTime() - 5);
+    },
   },
 });
 
@@ -118,5 +132,8 @@ export const {
   setPlayingSong,
   playSong,
   pauseSong,
+  forwardSong,
+  backwardSong,
+  getWaveSurf,
 } = songSlice.actions;
 export default songSlice.reducer;
